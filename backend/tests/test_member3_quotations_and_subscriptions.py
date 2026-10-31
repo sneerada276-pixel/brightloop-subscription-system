@@ -29,7 +29,8 @@ class Member3QuotationsSubscriptionsTestCase(unittest.TestCase):
         cls.app.config['SECRET_KEY'] = 'test-secret-key-member3'
 
         # Register subscription_bp with /api prefix for testing
-        cls.app.register_blueprint(subscription_bp, url_prefix='/api')
+        if 'subscriptions' not in cls.app.blueprints:
+            cls.app.register_blueprint(subscription_bp, url_prefix='/api')
 
         with cls.app.app_context():
             db.create_all()

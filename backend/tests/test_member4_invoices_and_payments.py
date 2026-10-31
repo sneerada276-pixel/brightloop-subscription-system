@@ -29,7 +29,8 @@ class Member4InvoicesPaymentsTestCase(unittest.TestCase):
         cls.app.config['SECRET_KEY'] = 'test-secret-key-member4'
 
         # Register invoice_bp with /api prefix for testing
-        cls.app.register_blueprint(invoice_bp, url_prefix='/api')
+        if 'invoices' not in cls.app.blueprints:
+            cls.app.register_blueprint(invoice_bp, url_prefix='/api')
 
         with cls.app.app_context():
             db.create_all()

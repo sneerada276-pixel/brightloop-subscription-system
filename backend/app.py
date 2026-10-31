@@ -28,7 +28,14 @@ def create_app():
 
     # Register application blueprints
     from routes.auth_routes import auth_bp
+    from routes.product_routes import product_bp
+    from routes.subscription_routes import subscription_bp
+    from routes.invoice_routes import invoice_bp
+
     app.register_blueprint(auth_bp, url_prefix='/api')
+    app.register_blueprint(product_bp, url_prefix='/api')
+    app.register_blueprint(subscription_bp, url_prefix='/api')
+    app.register_blueprint(invoice_bp, url_prefix='/api')
 
     # Health check endpoint
     @app.route('/api/health', methods=['GET'])
@@ -48,10 +55,16 @@ def create_app():
                 '/api/users',
                 '/api/users/staff',
                 '/api/customers',
-                '/api/dashboard/stats',
+                '/api/products',
                 '/api/plans',
+                '/api/quotation-templates',
+                '/api/quotations',
                 '/api/subscriptions',
-                '/api/invoices'
+                '/api/invoices',
+                '/api/taxes',
+                '/api/discounts',
+                '/api/payments',
+                '/api/dashboard/stats'
             ]
         }), 200
 

@@ -27,8 +27,9 @@ class Member2ProductsPlansTestCase(unittest.TestCase):
         cls.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
         cls.app.config['SECRET_KEY'] = 'test-secret-key-member2'
 
-        # Register product_bp with /api prefix for testing
-        cls.app.register_blueprint(product_bp, url_prefix='/api')
+        # Register product_bp with /api prefix for testing if not already registered
+        if 'products' not in cls.app.blueprints:
+            cls.app.register_blueprint(product_bp, url_prefix='/api')
 
         with cls.app.app_context():
             db.create_all()
