@@ -17,6 +17,7 @@ def create_app():
     db_path = os.path.join(base_dir, 'subscriptions.db')
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'brightloop-dev-secret-key-2026-hackathon')
 
     # Enable Cross-Origin Resource Sharing (CORS)
     # Allows requests from Vite development server (http://localhost:5173)
@@ -24,6 +25,10 @@ def create_app():
 
     # Initialize SQLAlchemy with the app
     db.init_app(app)
+
+    # Register application blueprints
+    from routes.auth_routes import auth_bp
+    app.register_blueprint(auth_bp, url_prefix='/api')
 
     # Health check endpoint
     @app.route('/api/health', methods=['GET'])
@@ -35,9 +40,16 @@ def create_app():
             'database': 'SQLite connected',
             'endpoints': [
                 '/api/health',
+                '/api/auth/login',
+                '/api/auth/register-customer',
+                '/api/auth/reset-password-request',
+                '/api/auth/reset-password',
+                '/api/auth/me',
+                '/api/users',
+                '/api/users/staff',
+                '/api/customers',
                 '/api/dashboard/stats',
                 '/api/plans',
-                '/api/customers',
                 '/api/subscriptions',
                 '/api/invoices'
             ]

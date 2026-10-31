@@ -26,8 +26,6 @@ class Member1AuthTestCase(unittest.TestCase):
         cls.app.config['TESTING'] = True
         cls.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
         cls.app.config['SECRET_KEY'] = 'test-secret-key-12345'
-        # Register Member 1's Blueprint for test client
-        cls.app.register_blueprint(auth_bp, url_prefix='/api')
 
         with cls.app.app_context():
             db.create_all()
