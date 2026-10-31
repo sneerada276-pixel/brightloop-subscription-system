@@ -296,3 +296,4 @@ export default function TaxModal({ isOpen, onClose, onTaxCreated }) {
     </div>
   );
 }
+

@@ -863,3 +863,4 @@ def get_dashboard_stats():
         'pending_amount': pending_amount,
         'total_payments_count': len(successful_payments)
     }), 200
+

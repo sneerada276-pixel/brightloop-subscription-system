@@ -441,3 +441,4 @@ export default function InvoiceModal({ isOpen, onClose, onInvoiceCreated }) {
     </div>
   );
 }
+

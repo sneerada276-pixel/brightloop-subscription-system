@@ -220,3 +220,4 @@ export default function PaymentModal({ isOpen, invoice, onClose, onPaymentRecord
     </div>
   );
 }
+
