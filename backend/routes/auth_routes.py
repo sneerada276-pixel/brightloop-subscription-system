@@ -36,7 +36,7 @@ EMAIL_REGEX = re.compile(r'^[\w\.-]+@[\w\.-]+\.\w+$')
 
 
 def get_serializer():
-    secret = current_app.config.get('SECRET_KEY', SECRET_KEY)
+    secret = current_app.config.get('SECRET_KEY') or SECRET_KEY
     return URLSafeTimedSerializer(secret)
 
 
