@@ -1,0 +1,37 @@
+# Environments and Dependencies
+backend/venv/
+venv/
+backend/__pycache__/
+__pycache__/
+*.py[cod]
+backend/*.pyc
+backend/*.db
+backend/*.sqlite3
+backend/subscriptions.db
+backend/instance/
+instance/
+
+# Secrets and Environment Variables
+.env
+.env.*
+*.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Frontend Dependencies and Builds
+frontend/node_modules/
+node_modules/
+frontend/dist/
+dist/
+dist-ssr/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+*.log
+
+# Operating System and IDE Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
