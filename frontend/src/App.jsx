@@ -4,10 +4,20 @@ import NavbarUserMenu from './components/auth/NavbarUserMenu';
 import LoginPage from './pages/LoginPage';
 import UsersPage from './pages/UsersPage';
 import CustomersPage from './pages/CustomersPage';
+import ProductsPage from './pages/ProductsPage';
+import PlansPage from './pages/PlansPage';
+import SubscriptionsPage from './pages/SubscriptionsPage';
+import QuotationsPage from './pages/QuotationsPage';
+import InvoicesPage from './pages/InvoicesPage';
+import PaymentsPage from './pages/PaymentsPage';
+import DashboardStatsPage from './pages/DashboardStatsPage';
 
 function AppContent() {
   const { user, isAuthenticated, isAdmin, isStaff } = useAuth();
   const [activeTab, setActiveTab] = useState('overview'); // 'overview', 'customers', 'users', 'products', 'subscriptions', 'invoices'
+  const [productSubTab, setProductSubTab] = useState('products'); // 'products', 'plans'
+  const [subscriptionSubTab, setSubscriptionSubTab] = useState('subscriptions'); // 'subscriptions', 'quotations'
+  const [invoiceSubTab, setInvoiceSubTab] = useState('invoices'); // 'invoices', 'payments', 'stats'
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const [healthStatus, setHealthStatus] = useState(null);
@@ -38,14 +48,14 @@ function AppContent() {
 
   const modules = [
     { id: 1, name: "User Auth & Roles", desc: "Admin, Staff & Customer role-based access", ready: true },
-    { id: 2, name: "Product & Variants", desc: "Product catalog, sales/cost price & SKUs", ready: false },
-    { id: 3, name: "Subscription Plans", desc: "Daily, Weekly, Monthly & Yearly billing", ready: false },
-    { id: 4, name: "Quotations & Templates", desc: "Estimates and terms before subscribing", ready: false },
-    { id: 5, name: "Subscription Lifecycle", desc: "Draft, Active, Paused, Renewed & Closed", ready: false },
-    { id: 6, name: "Automated Invoicing", desc: "Configurable taxes & invoice state machine", ready: false },
-    { id: 7, name: "Discounts & Promo", desc: "Fixed/percentage codes, limits & expiry", ready: false },
-    { id: 8, name: "Payment Tracking", desc: "Multi-method audit log & receipts", ready: false },
-    { id: 9, name: "Business Dashboard", desc: "Active count, revenue, overdue & MRR", ready: false },
+    { id: 2, name: "Product & Variants", desc: "Product catalog, sales/cost price & SKUs", ready: true },
+    { id: 3, name: "Subscription Plans", desc: "Daily, Weekly, Monthly & Yearly billing", ready: true },
+    { id: 4, name: "Quotations & Templates", desc: "Estimates and terms before subscribing", ready: true },
+    { id: 5, name: "Subscription Lifecycle", desc: "Draft, Active, Paused, Renewed & Closed", ready: true },
+    { id: 6, name: "Automated Invoicing", desc: "Configurable taxes & invoice state machine", ready: true },
+    { id: 7, name: "Discounts & Promo", desc: "Fixed/percentage codes, limits & expiry", ready: true },
+    { id: 8, name: "Payment Tracking", desc: "Multi-method audit log & receipts", ready: true },
+    { id: 9, name: "Business Dashboard", desc: "Active count, revenue, overdue & MRR", ready: true },
     { id: 10, name: "Customer Portal", desc: "Customer profiles & password reset", ready: true },
   ];
 
@@ -104,13 +114,12 @@ function AppContent() {
               </button>
             )}
 
-            {/* Placeholders for upcoming modules from other members */}
             <button
               onClick={() => setActiveTab('products')}
               className={`px-3 py-2 rounded-lg transition-colors ${
                 activeTab === 'products'
                   ? 'bg-indigo-50 text-indigo-700 font-bold'
-                  : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               Products & Plans
@@ -121,7 +130,7 @@ function AppContent() {
               className={`px-3 py-2 rounded-lg transition-colors ${
                 activeTab === 'subscriptions'
                   ? 'bg-indigo-50 text-indigo-700 font-bold'
-                  : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               Subscriptions
@@ -132,7 +141,7 @@ function AppContent() {
               className={`px-3 py-2 rounded-lg transition-colors ${
                 activeTab === 'invoices'
                   ? 'bg-indigo-50 text-indigo-700 font-bold'
-                  : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               Invoices & Billing
@@ -311,36 +320,105 @@ function AppContent() {
         {/* TAB 3: USERS (ADMIN ONLY - MEMBER 1) */}
         {activeTab === 'users' && <UsersPage />}
 
-        {/* FUTURE MODULE PLACEHOLDERS (MEMBERS 2, 3, 4) */}
-        {(activeTab === 'products' || activeTab === 'subscriptions' || activeTab === 'invoices') && (
-          <div className="max-w-2xl mx-auto my-12 bg-white rounded-2xl border border-slate-200 p-10 text-center shadow-sm">
-            <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-4">
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 capitalize">
-              {activeTab === 'products' && 'Product & Plan Management (Member 2)'}
-              {activeTab === 'subscriptions' && 'Quotations & Subscriptions Lifecycle (Member 3)'}
-              {activeTab === 'invoices' && 'Invoicing, Discounts & Payment Engine (Member 4)'}
-            </h3>
-            <p className="text-sm text-slate-500 mt-2 max-w-lg mx-auto">
-              This module is assigned to another team member and is actively being developed on their dedicated feature branch. It will seamlessly appear here upon integration.
-            </p>
-            <div className="mt-6 flex justify-center space-x-3">
+        {/* TAB 4: PRODUCTS & PLANS (MEMBER 2) */}
+        {activeTab === 'products' && (
+          <div className="space-y-6">
+            <div className="flex items-center space-x-2 bg-slate-100 p-1.5 rounded-xl w-fit">
               <button
-                onClick={() => setActiveTab('customers')}
-                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg shadow-sm"
+                onClick={() => setProductSubTab('products')}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${
+                  productSubTab === 'products'
+                    ? 'bg-white text-indigo-700 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
               >
-                Explore Customer Management
+                📦 Products & Variants
               </button>
               <button
-                onClick={() => setActiveTab('overview')}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg"
+                onClick={() => setProductSubTab('plans')}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${
+                  productSubTab === 'plans'
+                    ? 'bg-white text-blue-700 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
               >
-                Back to System Overview
+                📅 Subscription Plans
               </button>
             </div>
+
+            {productSubTab === 'products' ? <ProductsPage /> : <PlansPage />}
+          </div>
+        )}
+
+        {/* TAB 5: SUBSCRIPTIONS & QUOTATIONS (MEMBER 3) */}
+        {activeTab === 'subscriptions' && (
+          <div className="space-y-6">
+            <div className="flex items-center space-x-2 bg-slate-100 p-1.5 rounded-xl w-fit">
+              <button
+                onClick={() => setSubscriptionSubTab('subscriptions')}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${
+                  subscriptionSubTab === 'subscriptions'
+                    ? 'bg-white text-indigo-700 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                🔄 Subscriptions Lifecycle
+              </button>
+              <button
+                onClick={() => setSubscriptionSubTab('quotations')}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${
+                  subscriptionSubTab === 'quotations'
+                    ? 'bg-white text-violet-700 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                📝 Quotations & Templates
+              </button>
+            </div>
+
+            {subscriptionSubTab === 'subscriptions' ? <SubscriptionsPage /> : <QuotationsPage />}
+          </div>
+        )}
+
+        {/* TAB 6: INVOICES, PAYMENTS & DASHBOARD (MEMBER 4) */}
+        {activeTab === 'invoices' && (
+          <div className="space-y-6">
+            <div className="flex items-center space-x-2 bg-slate-100 p-1.5 rounded-xl w-fit">
+              <button
+                onClick={() => setInvoiceSubTab('invoices')}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${
+                  invoiceSubTab === 'invoices'
+                    ? 'bg-white text-indigo-700 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                🧾 Invoices & Billing
+              </button>
+              <button
+                onClick={() => setInvoiceSubTab('payments')}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${
+                  invoiceSubTab === 'payments'
+                    ? 'bg-white text-emerald-700 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                💳 Payments & Audit
+              </button>
+              <button
+                onClick={() => setInvoiceSubTab('stats')}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${
+                  invoiceSubTab === 'stats'
+                    ? 'bg-white text-blue-700 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                📊 Financial Analytics
+              </button>
+            </div>
+
+            {invoiceSubTab === 'invoices' && <InvoicesPage />}
+            {invoiceSubTab === 'payments' && <PaymentsPage />}
+            {invoiceSubTab === 'stats' && <DashboardStatsPage />}
           </div>
         )}
       </main>
