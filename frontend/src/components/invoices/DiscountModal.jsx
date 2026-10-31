@@ -395,3 +395,4 @@ export default function DiscountModal({ isOpen, onClose, onDiscountCreated }) {
     </div>
   );
 }
+
